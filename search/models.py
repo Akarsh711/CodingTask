@@ -30,8 +30,6 @@ class Rating(models.Model):
     aggregate_rating: models.SmallIntegerField()
     food_item = models.ForeignKey(FoodItems, on_delete = models.CASCADE)
 
-    def aggregateRating():
-        pass
 
 class Currency(models.Model):
     name = models.CharField(max_length=36, null=False, blank=False)
