@@ -11,7 +11,7 @@ To populate data from csv: http://127.0.0.1:8000/populate
 
 #### Working Images:
 
-How data needs to be inserted(My apologies for not begin able to add reverse geocode for location search):
+How data needs to be inserted(My apologies for not begin able to add geocoding for location search):
 
 ![Screenshot from 2023-06-29 20-24-55](https://github.com/Akarsh711/CodingTaskPrimeNumbers/assets/48852000/05e3723c-9fb8-4b84-9c62-072679fdaf28)
 
