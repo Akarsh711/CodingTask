@@ -19,6 +19,15 @@ from django.urls import path
 from search import views
 
 urlpatterns = [
-    path('', views.search, name='search'),
-    path('admin/', admin.site.urls),
+    # path('', views., name='search'),
+    path('', views.search_by_relevance, name='search-by-relevance'),
+    path('populate', views.populate_database, name='populate-database'),
+    path('flush', views.flush_populated_data, name='flush-database'),
+    path('search-by-price', views.search_by_price, name='search-by-price'),
+    path('search-by-rating', views.search_by_rating, name='search-by-rating'),
+    path('search-by-offer', views.search_by_offer, name='search-by-offer'),
+
+
+
+    path('admin/', admin.site.urls)
 ]

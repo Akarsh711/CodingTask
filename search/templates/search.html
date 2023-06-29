@@ -1,110 +1,215 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <style></style>
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid justify-content-center">
-          <a class="navbar-brand" href="#"><i class="fa-solid fa-utensils"></i>
-            
-            </a>
-          <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            
-          </button> -->
-          <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+      <div class="container-fluid justify-content-center">
+        <a class="navbar-brand" href="{% url 'search-by-relevance' %}"
+          ><i class="fa-solid fa-utensils"></i>
+        </a>
+      </div>
+    </nav>
+    
+
+    <div class="container">
+      <div class="my-5 px-5 mx-5 px-5">
+        {% if error %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong></strong> {{error}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        <form action="{% url search_by %}">
+          <div class="mb-3">
+            <!-- {% csrf_token %} -->
+            <div class="d-flex gap-4">
+              <input
+                name="food_item"
+                type="text"
+                placeholder="search what you want to eat"
+                class="form-control"
+                id="text"
+                aria-describedby="emailHelp"
+              />
+              <input
+                name="location"
+                type="text"
+                placeholder="Enter your location or provide coordinate"
+                class="form-control"
+                id="text"
+                aria-describedby="emailHelp"
+              />
+
+              <button type="submit" class="btn btn-search">
+                <!-- <span><i class="fa-solid fa-magnifying-glass" style="color: #ffff;"></i></span> -->
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+        Filter By :
+        {% if search_by == "search-by-relevance" %}
+            <a href="{% url 'search-by-relevance'%}"><button type="button" class="btn btn-dark ">Relevance</button></a>
+            <a href="{% url 'search-by-price'%}"><button type="button" class="btn btn-light">Price</button></a>
+            <a href="{% url 'search-by-rating'%}"><button type="button" class="btn btn-light">Rating</button></a>
+            <a href="{% url 'search-by-offer'%}"><button type="button" class="btn btn-light">Offer</button></a>
+        {% elif search_by == "search-by-price" %}
+            <a href="{% url 'search-by-relevance'%}"><button type="button" class="btn btn-light ">Relevance</button></a>
+            <a href="{% url 'search-by-price'%}"><button type="button" class="btn btn-dark">Price</button></a>
+            <a href="{% url 'search-by-rating'%}"><button type="button" class="btn btn-light">Rating</button></a>
+            <a href="{% url 'search-by-offer'%}"><button type="button" class="btn btn-light">Offer</button></a>
+        {% elif search_by ==  "search-by-rating" %}
+            <a href="{% url 'search-by-relevance'%}"><button type="button" class="btn btn-light ">Relevance</button></a>
+            <a href="{% url 'search-by-price'%}"><button type="button" class="btn btn-light">Price</button></a>
+            <a href="{% url 'search-by-rating'%}"><button type="button" class="btn btn-dark">Rating</button></a>
+            <a href="{% url 'search-by-offer'%}"><button type="button" class="btn btn-light">Offer</button></a>
+        {% elif search_by == "search-by-offer" %}
+            <a href="{% url 'search-by-relevance'%}"><button type="button" class="btn btn-light ">Relevance</button></a>
+            <a href="{% url 'search-by-price'%}"><button type="button" class="btn btn-light">Price</button></a>
+            <a href="{% url 'search-by-rating'%}"><button type="button" class="btn btn-light">Rating</button></a>
+            <a href="{% url 'search-by-offer'%}"><button type="button" class="btn btn-dark">Offer</button></a>
+        {% endif %}
+
+        {% for item in page_obj %}
+        <div class="res">
+          <div class="image">
+            <i class="fa-solid fa-bowl-food fa-5x"></i>
+          </div>
+
+          <div class="content">
+            <div class="title-wrap">
+              <div class="title">{{ item.restaurant_detail.name }}</div>
+            </div>
+            <div class="right-side">
+              <div class="price">{{ item.price }}</div>
+              <div class="rating">
+                <div class="rating-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="rating-value">{{ item.restaurant_detail.rating.aggregate_rating}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- <div class="res">
+          <div class="image">
+            <i class="fa-solid fa-bowl-food fa-5x"></i>
+          </div>
+
+          <div class="content">
+            <div class="title-wrap">
+              <div class="title">Maa Vaishno Rasoi</div>
+            </div>
+            <div class="right-side">
+              <div class="price">0000</div>
+              <div class="rating">
+                <div class="rating-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="rating-value">10.00</div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        {% if page_obj %}
+        <nav aria-label="Page navigation example">
+          <ul class="pagination my-5 justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1&food_item={{name}}&location={{location}}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo; First</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&food_item={{name}}&location={{location}}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo; Previoius</span>
+                </a>
               </li>
-             </ul>
-          </div> -->
-        </div>
-      </nav>
 
-      <div class="container">
-        <div class="my-5 px-5 mx-5 px-5">
             
+            {% endif %}
 
-            <form>
-                <div class="mb-3">
-                <!-- <label for="exampleInputEmail1" class="form-label">Search for the food Item of your choice</label> -->
-                
-                    <div class="d-flex gap-4">
-                        <input type="email" placeholder="search what you want to eat" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    
-                    
-                        <button type="submit" class="btn btn-search">
-                            <!-- <span><i class="fa-solid fa-magnifying-glass" style="color: #ffff;"></i></span> -->
-                            Search
-                        </button>
-                    </div>
-                </div>
-          </form>
-          Filter By :
-            <button type="button" class="btn btn-light">Relevance</button>
-            <button type="button" class="btn btn-light">Price</button>
-            <button type="button" class="btn btn-light">Distance</button>
-            <button type="button" class="btn btn-light">Offer</button>
-            <button type="button" class="btn btn-light">Rating</button>
+            <li class="page-item">
+              <span class="current">
+                <a class="page-link" href="#">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}.
+                </a>
+              </span>
+            </li>
 
-          <div class="res">
-            <div class="image">
-                <i class="fa-solid fa-bowl-food fa-5x"></i>
-            </div>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="?page={{ page_obj.next_page_number }}&food_item={{name}}&location={{location}}"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">Next</span>
+              </a>
+            </li>
 
-            <div class="content">
-                <div class="title-wrap">
-                    <div class="title">
-                        Chana da dhaba
-                    </div>
-                    <!-- <div class="desciption">famous for lon</div> -->
-                </div>
-                <div class="right-side">
-                    <div class="price">0000</div>
-                    <div class="rating">
-                        <div class="rating-icon"><i class="fa-solid fa-star"></i></div>
-                        <div class="rating-value">10.00</div>
-                        
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="?page={{ page_obj.paginator.num_pages }}&food_item={{name}}&location={{location}}"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">Last &raquo;</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      </div>
 
-                    </div>
+      <!-- --------------------------------------- -->
+      <!-- <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}&food_item={{name}}"
+            >previous</a
+          >
+          {% endif %}
 
-                </div>
-            </div>
-          </div>
-          
-          <div class="res">
-            <div class="image">
-                <i class="fa-solid fa-bowl-food fa-5x"></i>
-            </div>
+          <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
 
-            <div class="content">
-                <div class="title-wrap">
-                    <div class="title">
-                        Maa Vaishno Rasoi
-                    </div>
-                </div>
-                <div class="right-side">
-                    <div class="price">0000</div>
-                    <div class="rating">
-                        <div class="rating-icon"><i class="fa-solid fa-star"></i></div>
-                        <div class="rating-value">10.00</div>
-                        
-
-                    </div>
-
-                </div>
-            </div>
-          </div>
-        </div>
+          {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}&food_item={{name}}"
+            >next</a
+          >
+          <a href="?page={{ page_obj.paginator.num_pages }}&food_item={{name}}"
+            >last &raquo;</a
+          >
+          {% endif %}
+        </span>
+      </div> -->
     </div>
-</body>
+  </body>
 </html>

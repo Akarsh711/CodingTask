@@ -35,9 +35,6 @@
     "book_form_web_view_url": "",
     "is_table_reservation_supported": 0
 },
-
-
-
 // items:
 {
     "2 Idli with 1 Vada": "60.00 ",
@@ -272,18 +269,13 @@
     "Taco Mexicana Veg": "125.00 ",
     "Coke Mobile": "55.00 "
 }
-
-
-
 // Tables Required
-    // FULL DETAIL
-        // LOCATION
-        // RATING
-    
-    // PRICE
-
+// FULL DETAIL
+// LOCATION
+// RATING
+// PRICE
 // Search by name and recommend best match 
-    // Best Match:
-        // By rating user_rating
-        // By price 
-        // By distance
+// Best Match:
+// By rating user_rating
+// By price 
+// By distance

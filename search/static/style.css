@@ -75,8 +75,23 @@
 .btn-search {
     background-color: red;
     color:white;
-    
 }
+.btn-search:hover {
+    background-color: rgb(247, 63, 63);
+    color:white;
+}
+.btn-search:active{
+    background-color: rgb(247, 63, 63);
+    color:white;
+}
+
 .fa-utensils {
     color:red;
+}
+
+.page-link {
+    color:red
+}
+.page-link:hover {
+    color: red;
 }
